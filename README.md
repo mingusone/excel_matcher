@@ -35,3 +35,18 @@ Y Y Y Y Y
 Y Y Y Y Y
 Y Y Y Y Y
 ```
+
+## Todo:
+
+### Allow reading from two separate excel sheets.
+
+### Optimize the matching.
+Right now it's N^2 * 2. Everything in sheet A is compared to sheet B and vice versa. 
+
+Practically speaking this doesn't matter for anything under 300 row sheets on a 2016 laptop. If you had two excel sheets with 5000 rows then it may be a bit slow. 
+
+We can maybe keep a log of things that matched and remove them as they are matched but the issue is that one row may match multiple rows and it's not clear exactly which one is the "real" one.
+
+For example, comparing two sheets of checks based on the amount, 3 $20 checks in sheet A may match with 5 $20 checks in sheet B. You can't simply pull them out because it's not clear which one matches which.
+
+We could include a secondary row to compare on maybe using regex or some kind of match % (like say check description) but this is niche and may not be used and we're now entering into scope creep for a feature that isn't always useful.
